@@ -1,20 +1,29 @@
 [versions]
-agp = "8.1.4"
+agp = "8.2.0"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
+
+# AndroidX
 androidx-activityCompose = "1.8.2"
 androidx-appcompat = "1.6.1"
 androidx-constraintlayout = "2.1.4"
 androidx-core-ktx = "1.12.0"
 androidx-espresso-core = "3.5.1"
-androidx-material = "1.10.0"
+androidx-material = "1.11.0"
 androidx-test-junit = "1.1.5"
+
+# Compose
 compose = "1.5.4"
 compose-compiler = "1.5.6"
 compose-plugin = "1.5.11"
-junit = "4.13.2"
+
+kamelImage = "0.9.1"
 kotlin = "1.9.21"
+ktor = "2.3.7"
+kamel = "0.9.1"
+# Testing
+junit = "4.13.2"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -32,6 +41,10 @@ compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = 
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
