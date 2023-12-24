@@ -1,23 +1,24 @@
 package com.veprek.honza.rickandmorty.design.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-
-private val lightColors = lightColors(
-    primary = Primary,
-    primaryVariant = Blue,
-    secondary = Color.White,
-    onPrimary = Color.Black,
-)
 
 @Composable
 fun RickAndMortyTheme(
+    isInDarkMode: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
+    val colors = if (isInDarkMode) darkColors else lightColors
+
     MaterialTheme(
-        colors = lightColors,
+        colors = colors,
         content = content,
     )
+}
+
+object RickAndMortyTheme {
+    val typography: ThemeTypography
+        @Composable
+        get() = LocalThemeTypography.current
 }

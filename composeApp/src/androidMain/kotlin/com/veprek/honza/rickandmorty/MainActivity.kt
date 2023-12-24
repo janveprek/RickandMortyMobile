@@ -1,6 +1,5 @@
-package com.veprek.rickandmorty
+package com.veprek.honza.rickandmorty
 
-import com.veprek.rickandmorty.rickandmorty.App
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
