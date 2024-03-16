@@ -1,52 +1,97 @@
 package com.veprek.honza.rickandmorty.design.components
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import com.veprek.honza.rickandmorty.design.theme.Blue
+import com.veprek.honza.rickandmorty.navigation.system.Screen
+import com.veprek.honza.rickandmorty.navigation.system.routeToScreen
+import io.github.aakira.napier.Napier
+import kotlinx.coroutines.flow.map
+import moe.tlaster.precompose.navigation.Navigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import rickandmortymobile.composeapp.generated.resources.Res
+
+//import rickandmortymobile.composeapp.generated.resources.bottom_bar_characters
+//import rickandmortymobile.composeapp.generated.resources.bottom_bar_favourites
+//import rickandmortymobile.composeapp.generated.resources.ic_all
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun BottomBar() {
-    BottomNavigation {
-        BottomNavigationItem(
-            label = {
-                Text(
-                    text = "Characters",
-                    color = Blue,
-                )
-            },
-            onClick = {},
-            selected = true,
-            icon = {
-                Icon(
-                    painter = painterResource("ic_all.xml"),
-                    tint = Blue,
-                    contentDescription = "Favourite navigation icon",
-                )
-            },
-        )
-        BottomNavigationItem(
-            label = {
-                Text(
-                    text = "Favorites",
-                )
-            },
-            selected = false,
-            onClick = {},
-            icon = {
-                Icon(
-                    painter = rememberVectorPainter(Icons.Default.Favorite),
-                    contentDescription = "Favourite navigation icon",
-                )
-            },
-        )
+fun BottomBar(
+    modifier: Modifier = Modifier,
+    navigator: Navigator,
+) {
+    val currentScreen by navigator.currentEntry.map { it?.route?.route.routeToScreen() }
+        .collectAsState(initial = null)
+    Napier.d("currentScreen: $currentScreen")
+    if (currentScreen?.isRoot == true) {
+        BottomAppBar(modifier) {
+            BottomBarItem(
+                isSelected = currentScreen == Screen.List,
+                textRes = Res.string.bottom_bar_characters,
+                iconPainter = painterResource(Res.drawable.ic_all),
+                onClick = { navigator.navigate(Screen.List.route) },
+            )
+            BottomBarItem(
+                isSelected = currentScreen == Screen.Favourite,
+                textRes = Res.string.bottom_bar_favourites,
+                iconPainter = rememberVectorPainter(Icons.Default.Favorite),
+                onClick = { navigator.navigate(Screen.Favourite.route) },
+            )
+        }
     }
+}
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+fun RowScope.BottomBarItem(
+    isSelected: Boolean,
+    selectedColor: Color = MaterialTheme.colorScheme.primary,
+    unSelectedColor: Color = Color.Gray,
+    textRes: StringResource,
+    iconPainter: Painter,
+    onClick: () -> Unit,
+) {
+    NavigationBarItem(
+        label = {
+            Text(
+                text = stringResource(textRes),
+                color =
+                if (isSelected) {
+                    selectedColor
+                } else {
+                    unSelectedColor
+                },
+            )
+        },
+        onClick = onClick,
+        selected = isSelected,
+        icon = {
+            Icon(
+                painter = iconPainter,
+                tint =
+                if (isSelected) {
+                    selectedColor
+                } else {
+                    unSelectedColor
+                },
+                contentDescription = stringResource(textRes),
+            )
+        },
+    )
 }
