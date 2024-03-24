@@ -13,11 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.veprek.honza.rickandmorty.character.model.CharacterModel
 import com.veprek.honza.rickandmorty.character.presentation.favorite.state.FavoriteCharactersState
-import com.veprek.honza.rickandmorty.character.presentation.favorite.state.ScreenState
 import com.veprek.honza.rickandmorty.design.components.AppSearchBar
 import com.veprek.honza.rickandmorty.design.components.CharacterCard
 import com.veprek.honza.rickandmorty.design.components.CharacterShimmerList
 import com.veprek.honza.rickandmorty.design.components.EmptyScreen
+import com.veprek.honza.rickandmorty.design.components.ErrorScreen
+import com.veprek.honza.rickandmorty.design.model.ScreenState
 import com.veprek.honza.rickandmorty.design.theme.paddingSmall
 import moe.tlaster.precompose.koin.koinViewModel
 
@@ -66,8 +67,8 @@ fun CharacterList(
         when (state.state) {
             is ScreenState.Loading -> CharacterShimmerList()
             is ScreenState.Empty -> EmptyScreen()
-            is ScreenState.Success,
-            -> {
+            is ScreenState.Error -> ErrorScreen(tryAgain = {})
+            is ScreenState.Success -> {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {

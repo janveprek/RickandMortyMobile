@@ -8,7 +8,7 @@ import com.veprek.honza.rickandmorty.character.model.CharacterModel
 import com.veprek.honza.rickandmorty.character.model.ResultWrapper
 import com.veprek.honza.rickandmorty.character.model.StatusFilter
 import com.veprek.honza.rickandmorty.character.presentation.list.state.CharacterListState
-import com.veprek.honza.rickandmorty.character.presentation.list.state.ScreenState
+import com.veprek.honza.rickandmorty.design.model.ScreenState
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

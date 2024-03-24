@@ -12,6 +12,8 @@ interface CharacterRepository {
 
     suspend fun getFavouriteCharacters(): List<CharacterModel>
 
+    suspend fun getFavouriteCharacterByName(name: String, filter: StatusFilter = StatusFilter.All): CharacterModel
+
     suspend fun addCharacterToFavourites(character: CharacterModel)
 
     suspend fun removeCharacterFromFavourites(character: CharacterModel)

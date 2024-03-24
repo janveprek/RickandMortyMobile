@@ -26,7 +26,8 @@ fun CharacterSearchList(
         modifier = modifier.fillMaxSize().padding(horizontal = paddingSmall),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        items(characters) { character ->
+        items(items = characters,
+            key = { it.id }) { character ->
             CharacterItem(
                 character = character,
                 onCharacterClick = onCharacterClick,

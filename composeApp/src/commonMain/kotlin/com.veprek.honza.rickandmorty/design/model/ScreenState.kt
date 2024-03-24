@@ -1,4 +1,4 @@
-package com.veprek.honza.rickandmorty.character.presentation.list.state
+package com.veprek.honza.rickandmorty.design.model
 
 sealed class ScreenState {
     data object Loading : ScreenState()

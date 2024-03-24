@@ -1,5 +1,9 @@
 package com.veprek.honza.rickandmorty.design.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
@@ -7,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.Close
@@ -26,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import com.veprek.honza.rickandmorty.design.theme.iconSizeMedium
 import com.veprek.honza.rickandmorty.design.theme.paddingSmall
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
@@ -83,11 +89,11 @@ fun AppSearchBar(
     var queryState by remember { mutableStateOf(query) }
     var active by remember { mutableStateOf(false) }
     Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = paddingSmall),
+        modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         SearchBar(
-            modifier = modifier.padding(bottom = paddingSmall),
+            modifier = modifier.padding(bottom = paddingSmall).weight(1f),
             placeholder = { Text(text = stringResource(Res.string.search_hint)) },
             active = active,
             query = queryState,
@@ -125,11 +131,17 @@ fun AppSearchBar(
                 active = it
             },
         )
-        IconButton(
-            modifier = Modifier.weight(1f),
-            onClick = onFilterClick,
+        AnimatedVisibility(
+            visible = !active,
+            enter = fadeIn(animationSpec = tween(500)),
+            exit = fadeOut(animationSpec = tween(500))
         ) {
-            Icon(imageVector = Icons.Default.Tune, contentDescription = null)
+            IconButton(
+                modifier = Modifier.size(iconSizeMedium),
+                onClick = onFilterClick,
+            ) {
+                Icon(imageVector = Icons.Default.Tune, contentDescription = null)
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.veprek.honza.rickandmorty.app.di.initKoin
-import com.veprek.honza.rickandmorty.character.presentation.detail.InfoPair
+import com.veprek.honza.rickandmorty.app.system.App
 import org.koin.android.ext.koin.androidContext
 
 class MainActivity : ComponentActivity() {
@@ -25,10 +25,4 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppAndroidPreview() {
     App()
-}
-
-@Preview
-@Composable
-fun Previews() {
-    InfoPair(title = "Status", value = "Alive")
 }

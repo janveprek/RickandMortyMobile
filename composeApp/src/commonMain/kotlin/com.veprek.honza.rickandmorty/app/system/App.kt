@@ -1,4 +1,4 @@
-package com.veprek.honza.rickandmorty
+package com.veprek.honza.rickandmorty.app.system
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

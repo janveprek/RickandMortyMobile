@@ -16,6 +16,10 @@ removeCharacterById:
 DELETE FROM Character
 WHERE id = ?;
 
+selectCharacterByName:
+SELECT * FROM Character
+WHERE name = ?;
+
 selectAllCharacters:
 SELECT Character.*
 FROM Character;

@@ -5,7 +5,7 @@ import com.veprek.honza.rickandmorty.character.domain.GetFavouriteCharactersUseC
 import com.veprek.honza.rickandmorty.character.domain.RemoveCharacterFromFavouritesUseCase
 import com.veprek.honza.rickandmorty.character.model.CharacterModel
 import com.veprek.honza.rickandmorty.character.presentation.favorite.state.FavoriteCharactersState
-import com.veprek.honza.rickandmorty.character.presentation.favorite.state.ScreenState
+import com.veprek.honza.rickandmorty.design.model.ScreenState
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

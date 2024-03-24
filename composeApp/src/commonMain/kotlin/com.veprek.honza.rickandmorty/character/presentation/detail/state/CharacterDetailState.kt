@@ -1,7 +1,7 @@
 package com.veprek.honza.rickandmorty.character.presentation.detail.state
 
 import com.veprek.honza.rickandmorty.character.model.CharacterDetail
-import com.veprek.honza.rickandmorty.character.presentation.list.state.ScreenState
+import com.veprek.honza.rickandmorty.design.model.ScreenState
 
 data class CharacterDetailState(
     val character: CharacterDetail? = null,

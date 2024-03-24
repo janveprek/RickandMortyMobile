@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import com.veprek.honza.rickandmorty.character.model.CharacterModel
 import com.veprek.honza.rickandmorty.character.model.StatusFilter
 import com.veprek.honza.rickandmorty.character.presentation.list.state.CharacterListState
-import com.veprek.honza.rickandmorty.character.presentation.list.state.ScreenState
 import com.veprek.honza.rickandmorty.design.components.AppSearchBar
 import com.veprek.honza.rickandmorty.design.components.CharacterCard
 import com.veprek.honza.rickandmorty.design.components.CharacterSearchList
@@ -23,6 +22,7 @@ import com.veprek.honza.rickandmorty.design.components.CharacterShimmerList
 import com.veprek.honza.rickandmorty.design.components.EmptyScreen
 import com.veprek.honza.rickandmorty.design.components.ErrorScreen
 import com.veprek.honza.rickandmorty.design.components.FilterBottomSheet
+import com.veprek.honza.rickandmorty.design.model.ScreenState
 import com.veprek.honza.rickandmorty.design.theme.paddingSmall
 import moe.tlaster.precompose.koin.koinViewModel
 

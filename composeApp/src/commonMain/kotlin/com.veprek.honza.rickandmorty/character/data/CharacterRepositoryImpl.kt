@@ -17,16 +17,24 @@ class CharacterRepositoryImpl(
             var characters = charactersApi.getAllCharacters(page).result.map { it.toModel() }
             val favourites = getFavouriteCharacters()
             characters =
-                characters.map { if (favourites.any { fav -> fav.id == it.id }) it.copy(isFavourite = true) else it }
+                characters.map {
+                    if (favourites.any { fav -> fav.id == it.id }) {
+                        it.copy(isFavourite = true)
+                    } else it
+                }
             ResultWrapper.Success(characters)
         } catch (ex: Exception) {
             ResultWrapper.Error(ex)
         }
     }
 
-    override suspend fun getCharactersByName(name: String, filter: StatusFilter): ResultWrapper<List<CharacterModel>> {
+    override suspend fun getCharactersByName(
+        name: String,
+        filter: StatusFilter
+    ): ResultWrapper<List<CharacterModel>> {
         return try {
-            var characters = charactersApi.getCharactersByName(name, filter).result.map { it.toModel() }
+            var characters =
+                charactersApi.getCharactersByName(name, filter).result.map { it.toModel() }
             val favourites = getFavouriteCharacters()
             characters =
                 characters.map { if (favourites.any { fav -> fav.id == it.id }) it.copy(isFavourite = true) else it }
@@ -36,9 +44,13 @@ class CharacterRepositoryImpl(
         }
     }
 
-    override suspend fun getFavouriteCharacters(): List<CharacterModel> {
-        return charactersDatabase.getFavouriteCharacters().map { it.toModel() }
-    }
+    override suspend fun getFavouriteCharacters(): List<CharacterModel> =
+        charactersDatabase.getFavouriteCharacters().map { it.toModel() }
+
+    override suspend fun getFavouriteCharacterByName(
+        name: String,
+        filter: StatusFilter
+    ): CharacterModel = charactersDatabase.getFavouriteCharacterByName(name).toModel()
 
     override suspend fun addCharacterToFavourites(character: CharacterModel) {
         charactersDatabase.addCharacterToFavourites(character.toEntity())

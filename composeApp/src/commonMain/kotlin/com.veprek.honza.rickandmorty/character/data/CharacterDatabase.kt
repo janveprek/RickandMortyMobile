@@ -5,6 +5,8 @@ import comveprekhonzarickandmorty.character.data.Character
 interface CharacterDatabase {
     fun getFavouriteCharacters(): List<Character>
 
+    fun getFavouriteCharacterByName(name: String): Character
+
     fun addCharacterToFavourites(character: Character)
 
     fun removeCharacterFromFavourites(character: Character)

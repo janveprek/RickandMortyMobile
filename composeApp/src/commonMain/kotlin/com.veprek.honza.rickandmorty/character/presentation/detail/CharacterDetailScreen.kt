@@ -17,11 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.veprek.honza.rickandmorty.character.presentation.detail.state.CharacterDetailState
-import com.veprek.honza.rickandmorty.character.presentation.list.state.ScreenState
 import com.veprek.honza.rickandmorty.design.components.CharacterShimmerList
 import com.veprek.honza.rickandmorty.design.components.EmptyScreen
 import com.veprek.honza.rickandmorty.design.components.ErrorScreen
 import com.veprek.honza.rickandmorty.design.components.TopBar
+import com.veprek.honza.rickandmorty.design.model.ScreenState
 import com.veprek.honza.rickandmorty.design.theme.RickAndMortyTheme
 import com.veprek.honza.rickandmorty.design.theme.cornerRadiusSmall
 import com.veprek.honza.rickandmorty.design.theme.dividerThickness
