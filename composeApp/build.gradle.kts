@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.kover)
 }
 
 kotlin {
@@ -38,6 +39,21 @@ kotlin {
     }
 
     sourceSets {
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+        }
+
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(libs.mockk.android)
+                implementation(libs.mockk.agent)
+                implementation(libs.coroutines.test)
+                implementation(libs.junit)
+                implementation(libs.kotest.assertions.core)
+            }
+        }
 
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
@@ -64,9 +80,6 @@ kotlin {
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.kotlinx.json)
 
-            implementation(libs.mvvm.core)
-            implementation(libs.mvvm.flow)
-            implementation(libs.mvvm.compose)
             implementation(libs.coil)
 
             // Koin
@@ -80,9 +93,6 @@ kotlin {
             api(libs.precompose.viewmodel)
 
             implementation(libs.napier)
-            // Pagination
-            implementation("app.cash.paging:paging-common:3.3.0-alpha02-0.4.0")
-            implementation("app.cash.paging:paging-compose-common:3.3.0-alpha02-0.4.0")
         }
 
         iosMain.dependencies {

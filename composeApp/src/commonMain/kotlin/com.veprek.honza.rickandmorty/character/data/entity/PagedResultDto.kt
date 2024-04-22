@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PagedResultDto(
     @SerialName("results")
-    val result: List<CharacterDto>,
+    val result: List<CharacterDto>? = null,
 )
+

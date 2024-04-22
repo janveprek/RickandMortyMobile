@@ -31,12 +31,16 @@ ktor = "2.3.7"
 napier = "2.7.1"
 precompose = "1.6.0-beta02"
 
-# Testing
-junit = "4.13.2"
-mvvmFlow = "0.16.1"
-mvvmCore = "0.16.1"
+# Database
 nativeDriver = "2.0.1"
 sqldelight = "2.0.1"
+
+# Testing
+junit = "4.13.2"
+mockk = "1.13.5"
+kover = "0.7.6"
+coroutinesTest = "1.7.3"
+kotest = "5.8.1"
 
 [libraries]
 coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
@@ -67,21 +71,23 @@ ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "kto
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+mockk-agent = {module = "io.mockk:mockk-agent", version.ref = "mockk" }
+coroutines-test = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest"}
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
-mvvm-compose = { module = "dev.icerock.moko:mvvm-compose", version.ref = "mvvmFlow" }
-mvvm-flow = { module = "dev.icerock.moko:mvvm-flow", version.ref = "mvvmFlow" }
-mvvm-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "mvvmCore" }
 precompose = { module = "moe.tlaster:precompose", version.ref = "precompose" }
 precompose-koin = { module = "moe.tlaster:precompose-koin", version.ref = "precompose" }
 precompose-viewmodel = { module = "moe.tlaster:precompose-viewmodel", version.ref = "precompose" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "nativeDriver" }
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "nativeDriver" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kover = {id = "org.jetbrains.kotlinx.kover", version.ref = "kover"}
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }

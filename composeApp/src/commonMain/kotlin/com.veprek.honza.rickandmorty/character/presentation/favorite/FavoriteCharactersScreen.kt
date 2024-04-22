@@ -21,6 +21,9 @@ import com.veprek.honza.rickandmorty.design.components.ErrorScreen
 import com.veprek.honza.rickandmorty.design.model.ScreenState
 import com.veprek.honza.rickandmorty.design.theme.paddingSmall
 import moe.tlaster.precompose.koin.koinViewModel
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
+import rickandmortymobile.composeapp.generated.resources.Res
 
 @Composable
 fun FavoriteCharactersScreen(
@@ -56,6 +59,7 @@ fun FavoriteCharactersScreenContent(
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CharacterList(
     modifier: Modifier = Modifier,
@@ -66,7 +70,8 @@ fun CharacterList(
     Column(modifier = modifier) {
         when (state.state) {
             is ScreenState.Loading -> CharacterShimmerList()
-            is ScreenState.Empty -> EmptyScreen()
+            is ScreenState.Empty -> EmptyScreen(
+                description = stringResource(Res.string.empty_text_favorites))
             is ScreenState.Error -> ErrorScreen(tryAgain = {})
             is ScreenState.Success -> {
                 Column(

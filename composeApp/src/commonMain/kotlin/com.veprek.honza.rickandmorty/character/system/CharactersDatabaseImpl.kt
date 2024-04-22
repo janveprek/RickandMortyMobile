@@ -9,6 +9,8 @@ class CharactersDatabaseImpl(
 ) : CharacterDatabase {
     override fun getFavouriteCharacters(): List<Character> = characterQueries.selectAllCharacters().executeAsList()
 
+    override fun getFavouriteCharactersByName(name: String): List<Character> = characterQueries.selectCharactersByName(name).executeAsList()
+
     override fun getFavouriteCharacterByName(name: String): Character = characterQueries.selectCharacterByName(name).executeAsOne()
 
     override fun addCharacterToFavourites(character: Character) {

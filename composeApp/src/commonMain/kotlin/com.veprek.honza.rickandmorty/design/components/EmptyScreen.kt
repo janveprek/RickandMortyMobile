@@ -29,6 +29,7 @@ import rickandmortymobile.composeapp.generated.resources.Res
 @Composable
 fun EmptyScreen(
     modifier: Modifier = Modifier,
+    description: String = stringResource(Res.string.empty_text),
 ) {
     Column(
         modifier
@@ -58,7 +59,7 @@ fun EmptyScreen(
         Text(
             modifier = Modifier.padding(horizontal = paddingSmall),
             textAlign = TextAlign.Center,
-            text = stringResource(Res.string.empty_text),
+            text = description,
             style = RickAndMortyTheme.typography.bodyMedium,
         )
     }

@@ -12,7 +12,8 @@
 
     <!--  Empty  -->
     <string name="empty_title">There's nothing here!</string>
-    <string name="empty_text">Add some characters to favorites</string>
+    <string name="empty_text_favorites">Add some characters to favorites</string>
+    <string name="empty_text">Try searching with different query</string>
 
     <!--  Sections  -->
     <string name="name">Name</string>

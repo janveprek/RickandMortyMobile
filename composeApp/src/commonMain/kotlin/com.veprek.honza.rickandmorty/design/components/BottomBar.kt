@@ -71,12 +71,6 @@ fun RowScope.BottomBarItem(
         label = {
             Text(
                 text = stringResource(textRes),
-                color =
-                if (isSelected) {
-                    selectedColor
-                } else {
-                    unSelectedColor
-                },
             )
         },
         onClick = onClick,
@@ -84,12 +78,6 @@ fun RowScope.BottomBarItem(
         icon = {
             Icon(
                 painter = iconPainter,
-                tint =
-                if (isSelected) {
-                    selectedColor
-                } else {
-                    unSelectedColor
-                },
                 contentDescription = stringResource(textRes),
             )
         },

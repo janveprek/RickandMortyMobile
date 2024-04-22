@@ -89,11 +89,11 @@ fun AppSearchBar(
     var queryState by remember { mutableStateOf(query) }
     var active by remember { mutableStateOf(false) }
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = paddingSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
         SearchBar(
-            modifier = modifier.padding(bottom = paddingSmall).weight(1f),
+            modifier = modifier.padding(bottom = paddingSmall).fillMaxWidth().weight(1f, false),
             placeholder = { Text(text = stringResource(Res.string.search_hint)) },
             active = active,
             query = queryState,

@@ -20,6 +20,10 @@ selectCharacterByName:
 SELECT * FROM Character
 WHERE name = ?;
 
+selectCharactersByName:
+SELECT * FROM Character
+WHERE name LIKE ?;
+
 selectAllCharacters:
 SELECT Character.*
 FROM Character;

@@ -14,15 +14,21 @@ class CharacterRepositoryImpl(
 ) : CharacterRepository {
     override suspend fun getAllCharacters(page: Long): ResultWrapper<List<CharacterModel>> {
         return try {
-            var characters = charactersApi.getAllCharacters(page).result.map { it.toModel() }
-            val favourites = getFavouriteCharacters()
-            characters =
-                characters.map {
-                    if (favourites.any { fav -> fav.id == it.id }) {
-                        it.copy(isFavourite = true)
-                    } else it
-                }
-            ResultWrapper.Success(characters)
+            val result =
+                charactersApi.getAllCharacters(page)
+            result.result?.let {
+                var characters = result.result.map { it.toModel() }
+                val favourites = getFavouriteCharacters()
+                characters =
+                    characters.map {
+                        if (favourites.any { fav -> fav.id == it.id }) {
+                            it.copy(isFavourite = true)
+                        } else it
+                    }
+                ResultWrapper.Success(characters)
+            } ?: run {
+                ResultWrapper.Success(emptyList())
+            }
         } catch (ex: Exception) {
             ResultWrapper.Error(ex)
         }
@@ -33,18 +39,32 @@ class CharacterRepositoryImpl(
         filter: StatusFilter
     ): ResultWrapper<List<CharacterModel>> {
         return try {
-            var characters =
-                charactersApi.getCharactersByName(name, filter).result.map { it.toModel() }
-            val favourites = getFavouriteCharacters()
-            characters =
-                characters.map { if (favourites.any { fav -> fav.id == it.id }) it.copy(isFavourite = true) else it }
-            ResultWrapper.Success(characters)
+            val result =
+                charactersApi.getCharactersByName(name, filter)
+            result.result?.let {
+                var characters = result.result.map { it.toModel() }
+                val favourites = getFavouriteCharacters()
+                characters =
+                    characters.map {
+                        if (favourites.any { fav -> fav.id == it.id }) it.copy(
+                            isFavourite = true
+                        ) else it
+                    }
+                ResultWrapper.Success(characters)
+            } ?: run {
+                ResultWrapper.Success(emptyList())
+            }
         } catch (ex: Exception) {
             ResultWrapper.Error(ex)
         }
     }
 
     override suspend fun getFavouriteCharacters(): List<CharacterModel> =
+        charactersDatabase.getFavouriteCharacters().map { it.toModel() }
+
+    override suspend fun getFavouriteCharactersByName(
+        name: String,
+    ): List<CharacterModel> =
         charactersDatabase.getFavouriteCharacters().map { it.toModel() }
 
     override suspend fun getFavouriteCharacterByName(
