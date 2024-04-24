@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinMultiplatform)
@@ -9,6 +12,15 @@ plugins {
 
 kotlin {
     androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+
+            dependencies {
+                implementation(libs.androidx.ui.test.junit4.android)
+                debugImplementation(libs.androidx.ui.test.manifest)
+            }
+        }
         compilations.all {
             kotlinOptions {
                 jvmTarget = "11"
@@ -52,6 +64,7 @@ kotlin {
                 implementation(libs.coroutines.test)
                 implementation(libs.junit)
                 implementation(libs.kotest.assertions.core)
+                implementation(libs.turbine)
             }
         }
 
@@ -102,6 +115,32 @@ kotlin {
     }
 }
 
+koverReport {
+    filters {
+        excludes {
+            classes("com.veprek.honza.rickandmorty.MainActivity*")
+            classes("com.veprek.honza.rickandmorty.ComposableSingletons*")
+            classes("com.veprek.honza.rickandmorty.app.*")
+            classes("com.veprek.honza.rickandmorty.*.di.*")
+            classes("com.veprek.honza.rickandmorty.character.data.*")
+            classes("com.veprek.honza.rickandmorty.data.*")
+            classes("com.veprek.honza.rickandmorty.design.*")
+            classes("com.veprek.honza.rickandmorty.navigation.system*")
+            classes("comveprekhonzarickandmorty.character.data.*")
+            classes("rickandmortymobile.composeapp.generated.resources.*")
+            annotatedBy("androidx.compose.runtime.Composable")
+        }
+    }
+    verify {
+        rule {
+            isEnabled = true
+            bound {
+                minValue = 75
+            }
+        }
+    }
+}
+
 android {
     namespace = "com.veprek.honza.rickandmorty"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -115,6 +154,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
         resources {

@@ -31,16 +31,6 @@ class CharactersListViewModel(
             updateCharacters()
     }
 
-    override fun onCleared() {
-        Napier.d("onCleared", tag = TAG)
-        super.onCleared()
-    }
-
-    override fun close() {
-        Napier.d("close", tag = TAG)
-        super.close()
-    }
-
     internal fun updateCharacters() {
         _charactersState.update { it.copy(state = ScreenState.Loading) }
         viewModelScope.launch {
