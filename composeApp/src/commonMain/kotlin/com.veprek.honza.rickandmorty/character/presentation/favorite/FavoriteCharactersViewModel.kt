@@ -27,16 +27,6 @@ class FavoriteCharactersViewModel(
         getCharacters()
     }
 
-    override fun onCleared() {
-        Napier.d("onCleared", tag = TAG)
-        super.onCleared()
-    }
-
-    override fun close() {
-        Napier.d("close", tag = TAG)
-        super.close()
-    }
-
     private fun getCharacters() {
         _charactersState.update { it.copy(state = ScreenState.Loading) }
         viewModelScope.launch {
@@ -69,14 +59,14 @@ class FavoriteCharactersViewModel(
     }
 
     fun search(query: String) {
-        Napier.d("searching loaded")
         viewModelScope.launch {
             val favourites = getFavouriteCharacters()
             val characters = if (query.isNotEmpty()) {
-                favourites.filter { it.name.contains(query.trim()) }
+                favourites.filter { it.name.lowercase().contains(query.lowercase().trim()) }
             } else {
                 favourites
             }
+            _charactersState.update { it.copy(query = query) }
             updateState(characters)
         }
     }

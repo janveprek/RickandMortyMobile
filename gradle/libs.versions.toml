@@ -41,8 +41,15 @@ mockk = "1.13.5"
 kover = "0.7.6"
 coroutinesTest = "1.7.3"
 kotest = "5.8.1"
+uiTestJunit4Android = "1.6.6"
+uiTestManifest = "1.6.6"
+turbine = "1.1.0"
 
 [libraries]
+androidx-ui-test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
+androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "uiTestManifest" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+
 coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
 #koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
@@ -72,8 +79,8 @@ ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "kto
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
-mockk-agent = {module = "io.mockk:mockk-agent", version.ref = "mockk" }
-coroutines-test = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest"}
+mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
 precompose = { module = "moe.tlaster:precompose", version.ref = "precompose" }
@@ -81,13 +88,13 @@ precompose-koin = { module = "moe.tlaster:precompose-koin", version.ref = "preco
 precompose-viewmodel = { module = "moe.tlaster:precompose-viewmodel", version.ref = "precompose" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "nativeDriver" }
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "nativeDriver" }
-kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest"}
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kover = {id = "org.jetbrains.kotlinx.kover", version.ref = "kover"}
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }

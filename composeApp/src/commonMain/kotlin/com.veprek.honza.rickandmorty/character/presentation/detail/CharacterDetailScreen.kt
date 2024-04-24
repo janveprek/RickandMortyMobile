@@ -45,6 +45,7 @@ import rickandmortymobile.composeapp.generated.resources.Res
 
 private const val AVATAR_SIZE_IN_DP = 120
 
+@KoverIgnore
 @Composable
 fun CharacterDetailScreen(
     goBack: () -> Unit,
@@ -59,6 +60,8 @@ fun CharacterDetailScreen(
         goBack = goBack,
     )
 }
+
+annotation class KoverIgnore
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable

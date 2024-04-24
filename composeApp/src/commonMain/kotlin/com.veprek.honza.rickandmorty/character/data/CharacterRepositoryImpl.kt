@@ -65,7 +65,7 @@ class CharacterRepositoryImpl(
     override suspend fun getFavouriteCharactersByName(
         name: String,
     ): List<CharacterModel> =
-        charactersDatabase.getFavouriteCharacters().map { it.toModel() }
+        charactersDatabase.getFavouriteCharactersByName(name).map { it.toModel() }
 
     override suspend fun getFavouriteCharacterByName(
         name: String,
