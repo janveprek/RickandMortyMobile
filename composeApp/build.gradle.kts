@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
+import com.android.build.gradle.internal.lint.LintModelWriterTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
@@ -113,6 +115,14 @@ kotlin {
             implementation(libs.sqldelight.native.driver)
         }
     }
+}
+
+tasks.withType<AndroidLintAnalysisTask>{
+    dependsOn("copyFontsToAndroidAssets")
+}
+
+tasks.withType<LintModelWriterTask>{
+    dependsOn("copyFontsToAndroidAssets")
 }
 
 koverReport {
