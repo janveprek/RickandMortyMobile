@@ -82,7 +82,12 @@ class CharacterRepositoryImpl(
 
     override suspend fun getCharacterById(id: Long): ResultWrapper<CharacterDetail> {
         return try {
-            ResultWrapper.Success(charactersApi.getCharacterById(id).toModel())
+            val character = charactersApi.getCharacterById(id).toModel()
+            if (getFavouriteCharacters().find { it.id == id.toInt() } != null) {
+                ResultWrapper.Success(character.copy(isFavourite = true))
+            } else {
+                ResultWrapper.Success(character)
+            }
         } catch (ex: Exception) {
             ResultWrapper.Error(ex)
         }

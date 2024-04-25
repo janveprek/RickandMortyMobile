@@ -20,6 +20,7 @@ import com.veprek.honza.rickandmorty.character.presentation.detail.state.Charact
 import com.veprek.honza.rickandmorty.design.components.CharacterShimmerList
 import com.veprek.honza.rickandmorty.design.components.EmptyScreen
 import com.veprek.honza.rickandmorty.design.components.ErrorScreen
+import com.veprek.honza.rickandmorty.design.components.FavouriteIcon
 import com.veprek.honza.rickandmorty.design.components.TopBar
 import com.veprek.honza.rickandmorty.design.model.ScreenState
 import com.veprek.honza.rickandmorty.design.theme.RickAndMortyTheme
@@ -57,6 +58,7 @@ fun CharacterDetailScreen(
 
     CharacterDetailScreenContent(
         state = uiState,
+        toggleFavourite = detailViewModel::toggleFavourite,
         goBack = goBack,
     )
 }
@@ -68,11 +70,22 @@ annotation class KoverIgnore
 fun CharacterDetailScreenContent(
     modifier: Modifier = Modifier,
     state: CharacterDetailState,
+    toggleFavourite: () -> Unit,
     goBack: () -> Unit,
 ) {
     state.character?.let { character ->
         Scaffold(
-            topBar = { TopBar(title = state.character.name, goBack = goBack) },
+            topBar = {
+                TopBar(
+                    title = state.character.name,
+                    goBack = goBack,
+                    actions = {
+                        FavouriteIcon(
+                            isFavourite = state.character.isFavourite,
+                            onClick = toggleFavourite
+                        )
+                    })
+            },
         ) {
             Column(modifier = modifier.padding(it)) {
                 when (state.state) {
@@ -82,13 +95,34 @@ fun CharacterDetailScreenContent(
                     is ScreenState.Success -> {
                         Column {
                             Header(name = character.name, iconUrl = character.iconUrl)
-                            HorizontalDivider(modifier = Modifier.fillMaxWidth(), thickness = dividerThickness)
-                            InfoPair(title = stringResource(Res.string.status), value = character.status)
-                            InfoPair(title = stringResource(Res.string.species), value = character.species)
-                            InfoPair(title = stringResource(Res.string.type), value = character.type)
-                            InfoPair(title = stringResource(Res.string.gender), value = character.gender)
-                            InfoPair(title = stringResource(Res.string.origin), value = character.origin)
-                            InfoPair(title = stringResource(Res.string.location), value = character.location)
+                            HorizontalDivider(
+                                modifier = Modifier.fillMaxWidth(),
+                                thickness = dividerThickness
+                            )
+                            InfoPair(
+                                title = stringResource(Res.string.status),
+                                value = character.status
+                            )
+                            InfoPair(
+                                title = stringResource(Res.string.species),
+                                value = character.species
+                            )
+                            InfoPair(
+                                title = stringResource(Res.string.type),
+                                value = character.type
+                            )
+                            InfoPair(
+                                title = stringResource(Res.string.gender),
+                                value = character.gender
+                            )
+                            InfoPair(
+                                title = stringResource(Res.string.origin),
+                                value = character.origin
+                            )
+                            InfoPair(
+                                title = stringResource(Res.string.location),
+                                value = character.location
+                            )
                         }
                     }
                 }
@@ -109,15 +143,15 @@ fun Header(
             resource = asyncPainterResource(iconUrl),
             contentDescription = "avatar",
             modifier =
-                Modifier
-                    .clip(RoundedCornerShape(cornerRadiusSmall))
-                    .size(AVATAR_SIZE_IN_DP.dp),
+            Modifier
+                .clip(RoundedCornerShape(cornerRadiusSmall))
+                .size(AVATAR_SIZE_IN_DP.dp),
         )
         Column(
             modifier =
-                modifier.padding(
-                    horizontal = paddingMedium,
-                ),
+            modifier.padding(
+                horizontal = paddingMedium,
+            ),
         ) {
             Text(
                 text = stringResource(Res.string.name),
@@ -139,10 +173,10 @@ fun InfoPair(
 ) {
     Column(
         modifier =
-            modifier.padding(
-                horizontal = paddingMedium,
-                vertical = paddingSmall,
-            ),
+        modifier.padding(
+            horizontal = paddingMedium,
+            vertical = paddingSmall,
+        ),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(

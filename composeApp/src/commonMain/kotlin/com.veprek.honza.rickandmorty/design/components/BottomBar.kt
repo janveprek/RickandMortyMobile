@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import com.veprek.honza.rickandmorty.navigation.system.Screen
 import com.veprek.honza.rickandmorty.navigation.system.routeToScreen
-import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.map
 import moe.tlaster.precompose.navigation.Navigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -38,7 +37,6 @@ fun BottomBar(
 ) {
     val currentScreen by navigator.currentEntry.map { it?.route?.route.routeToScreen() }
         .collectAsState(initial = null)
-    Napier.d("currentScreen: $currentScreen")
     if (currentScreen?.isRoot == true) {
         BottomAppBar(modifier) {
             BottomBarItem(
