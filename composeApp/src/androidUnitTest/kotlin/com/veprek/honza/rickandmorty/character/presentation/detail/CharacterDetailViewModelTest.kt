@@ -1,13 +1,17 @@
 package com.veprek.honza.rickandmorty.character.presentation.detail
 
 import app.cash.turbine.test
+import com.veprek.honza.rickandmorty.character.domain.AddCharacterToFavouritesUseCase
 import com.veprek.honza.rickandmorty.character.domain.GetCharacterByIdUseCase
+import com.veprek.honza.rickandmorty.character.domain.RemoveCharacterFromFavouritesUseCase
 import com.veprek.honza.rickandmorty.character.model.CharacterDetail
 import com.veprek.honza.rickandmorty.character.model.ResultWrapper
 import com.veprek.honza.rickandmorty.design.model.ScreenState
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.runs
 import io.mockk.unmockkAll
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,9 +28,13 @@ import org.junit.Test
 class CharacterDetailViewModelTest {
 
     private val getCharacterById = mockk<GetCharacterByIdUseCase>()
+    private val addCharacterToFavourites = mockk<AddCharacterToFavouritesUseCase>()
+    private val removeCharacterFromFavourites = mockk<RemoveCharacterFromFavouritesUseCase>()
 
     private fun createViewModel() = CharacterDetailViewModel(
         getCharacterById = getCharacterById,
+        addCharacterToFavourites = addCharacterToFavourites,
+        removeCharacterFromFavourites = removeCharacterFromFavourites,
         id = 1
     )
 
@@ -78,4 +86,37 @@ class CharacterDetailViewModelTest {
             awaitItem().state shouldBe ScreenState.Error
         }
     }
+
+    @Test
+    fun `toggleFavourite should change screen state character`() = runTest {
+        val characterDetail = CharacterDetail(
+            id = 1,
+            name = "Rick",
+            status = "alive",
+            species = "species",
+            type = "type",
+            gender = "gender",
+            origin = "origin",
+            location = "location",
+            iconUrl = "icon",
+        )
+        coEvery { getCharacterById(any()) } returns
+                ResultWrapper.Success(characterDetail)
+        coEvery { addCharacterToFavourites(any()) } just runs
+        coEvery { removeCharacterFromFavourites(any()) } just runs
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.toggleFavourite()
+
+        viewModel.characterState.test {
+            awaitItem().character shouldBe characterDetail.copy(isFavourite = true)
+        }
+
+        viewModel.toggleFavourite()
+        viewModel.characterState.test {
+            awaitItem().character shouldBe characterDetail
+        }
+    }
+
 }

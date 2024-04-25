@@ -191,12 +191,41 @@ class CharacterRepositoryImplTest {
         val charactersApi = mockk<CharactersApi> {
             coEvery { getCharacterById(any()) } returns detail
         }
-        val charactersDatabase = mockk<CharacterDatabase>()
+        val charactersDatabase = mockk<CharacterDatabase> {
+            coEvery { getFavouriteCharacters() } returns emptyList()
+        }
         val repository = CharacterRepositoryImpl(charactersApi, charactersDatabase)
         val result = repository.getCharacterById(1)
 
         assertTrue(result is ResultWrapper.Success)
         assertEquals(detail.toModel(), result.value)
+    }
+
+    @Test
+    fun `getCharacterById returns favourite character`() = runTest {
+        val detail = CharacterDetailDto(
+            id = 1,
+            name = "Rick",
+            status = "alive",
+            species = "species",
+            type = "type",
+            gender = "gender",
+            origin = OriginDto("name"),
+            location = LocationDto("name"),
+            image = "image"
+        )
+
+        val charactersApi = mockk<CharactersApi> {
+            coEvery { getCharacterById(any()) } returns detail
+        }
+        val charactersDatabase = mockk<CharacterDatabase> {
+            coEvery { getFavouriteCharacters() } returns listOf(Character(1, "name", "status", "url"))
+        }
+        val repository = CharacterRepositoryImpl(charactersApi, charactersDatabase)
+        val result = repository.getCharacterById(1)
+
+        assertTrue(result is ResultWrapper.Success)
+        assertEquals(detail.toModel().copy(isFavourite = true), result.value)
     }
 
     @Test
