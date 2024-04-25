@@ -132,7 +132,6 @@ koverReport {
             classes("com.veprek.honza.rickandmorty.ComposableSingletons*")
             classes("com.veprek.honza.rickandmorty.app.*")
             classes("com.veprek.honza.rickandmorty.*.di.*")
-            classes("com.veprek.honza.rickandmorty.character.data.*")
             classes("com.veprek.honza.rickandmorty.data.*")
             classes("com.veprek.honza.rickandmorty.design.*")
             classes("com.veprek.honza.rickandmorty.navigation.system*")
