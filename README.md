@@ -1,5 +1,10 @@
 This is a Kotlin Multiplatform project targeting Android, iOS.
 
+It's an app based on TV series Rick and Morty. 
+UI of the screens is defined in Figma: https://www.figma.com/file/TRpNre9ykkxxLMDKQcUwLP/Rick-and-Morty-Design?type=design&node-id=0-1&mode=design&t=FeJwM5mrR0HqJChF-0
+
+This app uses https://rickandmortyapi.com/ API for making network calls.
+
 * `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
   It contains several subfolders:
   - `commonMain` is for code that’s common for all targets.
@@ -9,6 +14,5 @@ This is a Kotlin Multiplatform project targeting Android, iOS.
 
 * `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
   you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
-
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
