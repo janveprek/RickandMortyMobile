@@ -187,6 +187,7 @@ class CharactersListViewModelTest {
         viewModel.search(query)
         viewModel.charactersState.test {
             awaitItem()
+            awaitItem()
             val screenState = awaitItem()
             screenState.characters shouldBe emptyList<CharacterModel>()
             screenState.state shouldBe ScreenState.Empty
@@ -249,8 +250,9 @@ class CharactersListViewModelTest {
             oldState.state shouldBe ScreenState.Loading
             oldState.query shouldBe ""
             val screenState = awaitItem()
-            screenState.state shouldBe ScreenState.Success
             screenState.query shouldBe query
+            val newState = awaitItem()
+            newState.state shouldBe ScreenState.Success
         }
     }
 
@@ -264,6 +266,7 @@ class CharactersListViewModelTest {
 
         viewModel.charactersState.test {
             awaitItem().state shouldBe ScreenState.Loading
+            awaitItem()
             val screenState = awaitItem()
             screenState.state shouldBe ScreenState.Error
         }
