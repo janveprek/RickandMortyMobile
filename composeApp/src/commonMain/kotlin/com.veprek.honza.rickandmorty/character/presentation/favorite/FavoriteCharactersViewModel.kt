@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
 
+// TODO: When navigating to Favorite Characters, ViewModels somehow die
+// could be resolved by an update of library or by using https://www.jetbrains.com/help/kotlin-multiplatform-dev/whats-new-compose-eap.html#lifecycle-library
 class FavoriteCharactersViewModel(
     private val getFavouriteCharacters: GetFavouriteCharactersUseCase,
     private val addCharacterToFavourites: AddCharacterToFavouritesUseCase,
@@ -23,8 +25,12 @@ class FavoriteCharactersViewModel(
     val charactersState = _charactersState.asStateFlow()
 
     init {
-        Napier.d("init", tag = TAG)
         getCharacters()
+    }
+
+    override fun onCleared() {
+        Napier.d( "ViewModel killed", tag = TAG)
+        super.onCleared()
     }
 
     private fun getCharacters() {

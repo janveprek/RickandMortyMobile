@@ -27,8 +27,12 @@ class CharactersListViewModel(
     val charactersState = _charactersState.asStateFlow()
 
     init {
-        Napier.d("init", tag = TAG)
-            updateCharacters()
+        updateCharacters()
+    }
+
+    override fun onCleared() {
+        Napier.d("ViewModel killed", tag = TAG)
+        super.onCleared()
     }
 
     internal fun updateCharacters() {
@@ -45,6 +49,7 @@ class CharactersListViewModel(
                         )
                     }
                 }
+
                 is ResultWrapper.Error -> {
                     _charactersState.update {
                         it.copy(
@@ -84,6 +89,9 @@ class CharactersListViewModel(
         viewModelScope.launch {
             Napier.d("searching query: $query, filter: ${_charactersState.value.appliedFilter}")
             val result = getCharactersByName(query, _charactersState.value.appliedFilter)
+            _charactersState.update {
+                it.copy(query = query)
+            }
             when (result) {
                 is ResultWrapper.Success -> {
                     val characters = result.value
@@ -91,7 +99,6 @@ class CharactersListViewModel(
                         _charactersState.update {
                             it.copy(
                                 state = ScreenState.Success,
-                                query = query,
                                 characters = characters,
                             )
                         }
@@ -99,12 +106,12 @@ class CharactersListViewModel(
                         _charactersState.update {
                             it.copy(
                                 state = ScreenState.Empty,
-                                query = query,
                                 characters = characters,
                             )
                         }
                     }
                 }
+
                 is ResultWrapper.Error -> {
                     _charactersState.update {
                         it.copy(

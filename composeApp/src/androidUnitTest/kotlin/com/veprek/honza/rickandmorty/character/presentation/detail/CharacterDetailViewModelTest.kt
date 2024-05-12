@@ -118,5 +118,4 @@ class CharacterDetailViewModelTest {
             awaitItem().character shouldBe characterDetail
         }
     }
-
 }
