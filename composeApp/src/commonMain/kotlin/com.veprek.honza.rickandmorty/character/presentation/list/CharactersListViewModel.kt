@@ -27,8 +27,12 @@ class CharactersListViewModel(
     val charactersState = _charactersState.asStateFlow()
 
     init {
-        Napier.d("init", tag = TAG)
-            updateCharacters()
+        updateCharacters()
+    }
+
+    override fun onCleared() {
+        Napier.d( "ViewModel killed", tag = TAG)
+        super.onCleared()
     }
 
     internal fun updateCharacters() {
@@ -45,6 +49,7 @@ class CharactersListViewModel(
                         )
                     }
                 }
+
                 is ResultWrapper.Error -> {
                     _charactersState.update {
                         it.copy(
@@ -105,6 +110,7 @@ class CharactersListViewModel(
                         }
                     }
                 }
+
                 is ResultWrapper.Error -> {
                     _charactersState.update {
                         it.copy(
